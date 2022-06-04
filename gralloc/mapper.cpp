@@ -202,7 +202,7 @@ static int gralloc_unmap(gralloc_module_t const* module __unused, buffer_handle_
     case HAL_PIXEL_FORMAT_EXYNOS_YCbCr_420_SP_M_PRIV:
         chroma_size = hnd->stride * ALIGN(hnd->vstride / 2, 8) + ext_size;
         if (munmap(INT_TO_PTR(hnd->base2), PRIV_SIZE) < 0) {
-            ALOGE("%s :could not unmap %s %llx %d", __func__, strerror(errno), hnd->base2, chroma_size);
+            ALOGE("%s :could not unmap %s %lx %lx", __func__, strerror(errno), hnd->base2, chroma_size);
         }
         hnd->base2 = 0;
         break;
