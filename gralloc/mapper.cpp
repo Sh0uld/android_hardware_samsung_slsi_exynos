@@ -223,17 +223,17 @@ static int gralloc_unmap(gralloc_module_t const* module __unused, buffer_handle_
         return 0;
 
     if (munmap(INT_TO_PTR(hnd->base), hnd->size) < 0) {
-        ALOGE("%s :could not unmap %s %llx %d", __func__, strerror(errno),
+        ALOGE("%s :could not unmap %s %lx %d", __func__, strerror(errno),
               hnd->base, hnd->size);
     }
-    ALOGV("%s: base %llx %d %d %d %d\n", __func__, hnd->base, hnd->size,
+    ALOGV("%s: base %lx %d %d %d %d\n", __func__, hnd->base, hnd->size,
           hnd->width, hnd->height, hnd->stride);
     hnd->base = 0;
     if (hnd->fd1 >= 0) {
         if (!hnd->base1)
             return 0;
         if (munmap(INT_TO_PTR(hnd->base1), chroma_size) < 0) {
-            ALOGE("%s :could not unmap %s %llx %d", __func__, strerror(errno),
+            ALOGE("%s :could not unmap %s %lx %d", __func__, strerror(errno),
                   hnd->base1, chroma_size);
         }
         hnd->base1 = 0;
