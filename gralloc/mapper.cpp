@@ -233,7 +233,7 @@ static int gralloc_unmap(gralloc_module_t const* module __unused, buffer_handle_
         if (!hnd->base1)
             return 0;
         if (munmap(INT_TO_PTR(hnd->base1), chroma_size) < 0) {
-            ALOGE("%s :could not unmap %s %lx %d", __func__, strerror(errno),
+            ALOGE("%s :could not unmap %s %lx %lx", __func__, strerror(errno),
                   hnd->base1, chroma_size);
         }
         hnd->base1 = 0;
@@ -242,7 +242,7 @@ static int gralloc_unmap(gralloc_module_t const* module __unused, buffer_handle_
         if (!hnd->base2)
             return 0;
         if (munmap(INT_TO_PTR(hnd->base2), chroma_size) < 0) {
-            ALOGE("%s :could not unmap %s %llx %d", __func__, strerror(errno),
+            ALOGE("%s :could not unmap %s %lx %lx", __func__, strerror(errno),
                   hnd->base2, chroma_size);
         }
         hnd->base2 = 0;
@@ -274,7 +274,7 @@ int gralloc_register_buffer(gralloc_module_t const* module,
     err = gralloc_map(module, handle);
 
     private_handle_t* hnd = (private_handle_t*)handle;
-    ALOGV("%s: base %llx %d %d %d %d\n", __func__, hnd->base, hnd->size,
+    ALOGV("%s: base %lx %d %d %d %d\n", __func__, hnd->base, hnd->size,
           hnd->width, hnd->height, hnd->stride);
 
     int ret;
@@ -302,7 +302,7 @@ int gralloc_unregister_buffer(gralloc_module_t const* module,
         return -EINVAL;
 
     private_handle_t* hnd = (private_handle_t*)handle;
-    ALOGV("%s: base %llx %d %d %d %d\n", __func__, hnd->base, hnd->size,
+    ALOGV("%s: base %lx %d %d %d %d\n", __func__, hnd->base, hnd->size,
           hnd->width, hnd->height, hnd->stride);
 
     gralloc_unmap(module, handle);
@@ -485,7 +485,7 @@ int gralloc_lock_ycbcr(gralloc_module_t const* module __unused,
     memset(ycbcr->reserved, 0, sizeof(ycbcr->reserved));
 
     ALOGD("gralloc_lock_ycbcr success. format : %x, usage: %x, ycbcr.y: %p, .cb: %p, .cr: %p, "
-            ".ystride: %d , .cstride: %d, .chroma_step: %d", hnd->format, usage,
+            ".ystride: %lx , .cstride: %lx, .chroma_step: %lx", hnd->format, usage,
             ycbcr->y, ycbcr->cb, ycbcr->cr, ycbcr->ystride, ycbcr->cstride,
             ycbcr->chroma_step);
 
