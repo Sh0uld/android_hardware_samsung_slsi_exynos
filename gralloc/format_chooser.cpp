@@ -20,10 +20,12 @@
 #include <cutils/log.h>
 #include <cutils/properties.h>
 #include <hardware/gralloc.h>
+#include <inttypes.h>
 #include "format_chooser.h"
 
 #define FBT (GRALLOC_USAGE_HW_FB | GRALLOC_USAGE_HW_RENDER | GRALLOC_USAGE_HW_COMPOSER)
 #define GENERAL_UI (GRALLOC_USAGE_HW_TEXTURE | GRALLOC_USAGE_HW_COMPOSER)
+#define __STDC_FORMAT_MACROS
 
 /* It's for compression check format, width, usage*/
 int check_for_compression(int w, int h, int format, int usage)
@@ -93,7 +95,7 @@ uint64_t gralloc_select_format(int req_format, int usage, int is_compressible)
 #endif
 	new_format |= GRALLOC_ARM_INTFMT_AFBC;
 
-	ALOGD("Returned iterated format: 0x%lX", new_format);
+	ALOGD("Returned iterated format: 0x%" PRIu64 "", new_format);
 
 	return new_format;
 }

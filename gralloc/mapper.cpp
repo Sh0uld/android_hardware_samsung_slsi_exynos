@@ -235,7 +235,7 @@ static int gralloc_unmap(gralloc_module_t const* module __unused, buffer_handle_
         if (!hnd->base1)
             return 0;
         if (munmap(INT_TO_PTR(hnd->base1), chroma_size) < 0) {
-            ALOGE("%s :could not unmap %s %" PRIu64 " %lx", __func__, strerror(errno),
+            ALOGE("%s :could not unmap %s %" PRIu64 " %zu", __func__, strerror(errno),
                   hnd->base1, chroma_size);
         }
         hnd->base1 = 0;
@@ -244,7 +244,7 @@ static int gralloc_unmap(gralloc_module_t const* module __unused, buffer_handle_
         if (!hnd->base2)
             return 0;
         if (munmap(INT_TO_PTR(hnd->base2), chroma_size) < 0) {
-            ALOGE("%s :could not unmap %s %" PRIu64 " %lx", __func__, strerror(errno),
+            ALOGE("%s :could not unmap %s %" PRIu64 " %zu", __func__, strerror(errno),
                   hnd->base2, chroma_size);
         }
         hnd->base2 = 0;
@@ -487,7 +487,7 @@ int gralloc_lock_ycbcr(gralloc_module_t const* module __unused,
     memset(ycbcr->reserved, 0, sizeof(ycbcr->reserved));
 
     ALOGD("gralloc_lock_ycbcr success. format : %x, usage: %x, ycbcr.y: %p, .cb: %p, .cr: %p, "
-            ".ystride: %lx , .cstride: %lx, .chroma_step: %lx", hnd->format, usage,
+            ".ystride: %zu , .cstride: %zu, .chroma_step: %zu", hnd->format, usage,
             ycbcr->y, ycbcr->cb, ycbcr->cr, ycbcr->ystride, ycbcr->cstride,
             ycbcr->chroma_step);
 
