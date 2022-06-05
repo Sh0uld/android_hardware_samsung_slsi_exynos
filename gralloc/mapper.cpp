@@ -19,6 +19,7 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <string.h>
+#include <inttypes.h>
 
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -37,6 +38,7 @@
 
 #define INT_TO_PTR(var) ((void *)(unsigned long)var)
 #define PRIV_SIZE 64
+#define __STDC_FORMAT_MACROS
 
 #if MALI_AFBC_GRALLOC == 1
 //#include "gralloc_buffer_priv.h"
@@ -202,7 +204,7 @@ static int gralloc_unmap(gralloc_module_t const* module __unused, buffer_handle_
     case HAL_PIXEL_FORMAT_EXYNOS_YCbCr_420_SP_M_PRIV:
         chroma_size = hnd->stride * ALIGN(hnd->vstride / 2, 8) + ext_size;
         if (munmap(INT_TO_PTR(hnd->base2), PRIV_SIZE) < 0) {
-            ALOGE("%s :could not unmap %s %lx %lx", __func__, strerror(errno), hnd->base2, chroma_size);
+            ALOGE("%s :could not unmap %s %" PRIu64 " %lx", __func__, strerror(errno), hnd->base2, chroma_size);
         }
         hnd->base2 = 0;
         break;
